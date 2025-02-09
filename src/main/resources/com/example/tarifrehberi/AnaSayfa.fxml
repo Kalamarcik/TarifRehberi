@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TreeItem?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.scene.control.RadioButton?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tarifrehberi.AnaSayfaController">
+   <BorderPane layoutX="-1.0" layoutY="-3.0" prefHeight="720.0" prefWidth="1280.0">
+      <top>
+         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #5243BF;" BorderPane.alignment="CENTER">
+            <children>
+               <Label graphicTextGap="10.0" prefHeight="74.0" prefWidth="553.0" style="-fx-font-family: 'Kunstler Script'; -fx-font-size: 73;" text="Tarif Rehberim" textFill="WHITE">
+                  <graphic>
+                     <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                        <Image url="@../../../icons/recipe.png" />
+                     </ImageView>
+                  </graphic>
+               </Label>
+               <TextField fx:id="arama" focusTraversable="false" prefWidth="200.0" promptText="Ara...">
+                  <padding>
+                     <Insets left="10.0" />
+                  </padding>
+                  <HBox.margin>
+                     <Insets left="100.0" />
+                  </HBox.margin>
+               </TextField>
+               <ComboBox fx:id="sortComboBox" prefWidth="100.0" promptText="Sıralama Ölçütü">
+                  <items>
+                     <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="-" />
+                        <String fx:value="Hazırlama Süresi (Azalan)" />
+                        <String fx:value="Hazırlama Şuresi (Artan)" />
+                        <String fx:value="Maliyet (Azalan)" />
+                        <String fx:value="Maliyet (Artan)" />
+
+                     </FXCollections>
+                  </items>
+                  <HBox.margin>
+                     <Insets left="30.0" />
+                  </HBox.margin>
+               </ComboBox>
+               <Button fx:id="treeviewButton" mnemonicParsing="false" onAction="#handleTreeViewButtonAction" style="-fx-background-color: transparent;">
+                  <HBox.margin>
+                     <Insets left="30.0" />
+                  </HBox.margin>
+                  <graphic>
+                     <ImageView fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../../../icons/cooking.png" />
+                        </image>
+                     </ImageView>
+                  </graphic>
+               </Button>
+
+               <Button fx:id="malzemeAramaButonu" mnemonicParsing="false" onAction="#handleIngredientSearchButtonAction" style="-fx-background-color: transparent;">
+                  <graphic>
+                     <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../../../icons/MalzemeArama.png" />
+                        </image>
+                     </ImageView>
+                  </graphic>
+               </Button>
+            </children>
+            <padding>
+               <Insets left="60.0" />
+            </padding>
+         </HBox>
+      </top>
+      <left>
+         <VBox prefHeight="984.0" prefWidth="283.0" style="-fx-background-color: #6F5CC2;" BorderPane.alignment="CENTER">
+            <Button  alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleAddRecipe" prefHeight="71.0" prefWidth="283.0" stylesheets="@../../../styling.css" text="Tarif Ekle" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../icons/TarifEkle.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="35.0" />
+               </padding>
+               <font>
+                  <Font name="Cascadia Code Regular" size="20.0" />
+               </font>
+            </Button>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleAddMaterial" prefHeight="77.0" prefWidth="283.0" stylesheets="@../../../styling.css" text="Malzeme Ekle" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../icons/MalzemeEkle.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="35.0" />
+               </padding>
+               <font>
+                  <Font name="Cascadia Code Regular" size="20.0" />
+               </font>
+            </Button>
+         </VBox>
+      </left>
+      <center>
+         <ScrollPane prefHeight="1500.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
+            <content>
+               <AnchorPane fx:id="anchor" minHeight="0.0" minWidth="0.0" prefHeight="2600.0" prefWidth="981.0">
+                  <children>
+                     <GridPane fx:id="recipeGrid" prefHeight="1935.0" prefWidth="1280.0" style="-fx-background-color: #b9b4d1; -fx-border-color: #6f5cc2">
+                        <columnConstraints>
+                           <ColumnConstraints minWidth="335.0" prefWidth="335.0" />
+                           <ColumnConstraints minWidth="335.0" prefWidth="335.0" />
+                           <ColumnConstraints minWidth="335.0" prefWidth="335.0" />
+                        </columnConstraints>
+                     </GridPane>
+                     <VBox fx:id="filterVBox" style="-fx-background-color: #6F5CC2; -fx-padding: 10;" visible="false" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <TreeView fx:id="treeView" stylesheets="@../../../treeView.css">
+                           <TreeItem expanded="true">
+                              <value>
+                                 <String fx:value="Filtreler"/>
+                              </value>
+                              <children>
+                                 <TreeItem expanded="true" value="Kategoriler">
+                                    <children>
+                                       <TreeItem>
+                                          <value>
+                                             <HBox>
+                                                <CheckBox selected="true" />
+                                                <Label text="Ana Yemek" />
+                                             </HBox>
+                                          </value>
+                                       </TreeItem>
+                                       <TreeItem>
+                                          <value>
+                                             <HBox>
+                                                <CheckBox selected="true" />
+                                                <Label text="Çorba" />
+                                             </HBox>
+                                          </value>
+                                       </TreeItem>
+                                       <TreeItem>
+                                          <value>
+                                             <HBox>
+                                                <CheckBox selected="true" />
+                                                <Label text="Tatlı" />
+                                             </HBox>
+                                          </value>
+                                       </TreeItem>
+                                       <TreeItem>
+                                          <value>
+                                             <HBox>
+                                                <CheckBox selected="true" />
+                                                <Label text="Salata" />
+                                             </HBox>
+                                          </value>
+                                       </TreeItem>
+                                       <TreeItem>
+                                          <value>
+                                             <HBox>
+                                                <CheckBox selected="true" />
+                                                <Label text="Meze" />
+                                             </HBox>
+                                          </value>
+                                       </TreeItem>
+                                    </children>
+                                 </TreeItem>
+                                 <TreeItem expanded="true" value="Malzeme Sayısı">
+                                    <children>
+                                       <TreeItem>
+                                          <value>
+                                             <HBox>
+                                                <RadioButton selected="true"/>
+                                                <Label text="Tümü" />
+                                             </HBox>
+                                          </value>
+                                       </TreeItem>
+                                       <TreeItem>
+                                          <value>
+                                             <HBox>
+                                                <RadioButton />
+                                                <Label text="6 malzeme" />
+                                             </HBox>
+                                          </value>
+                                       </TreeItem>
+                                       <TreeItem>
+                                          <value>
+                                             <HBox>
+                                                <RadioButton />
+                                                <Label text="7 malzeme" />
+                                             </HBox>
+                                          </value>
+                                       </TreeItem>
+                                       <TreeItem>
+                                          <value>
+                                             <HBox>
+                                                <RadioButton />
+                                                <Label text="8 malzeme" />
+                                             </HBox>
+                                          </value>
+                                       </TreeItem>
+                                       <TreeItem>
+                                          <value>
+                                             <HBox>
+                                                <RadioButton />
+                                                <Label text="9+ malzeme" />
+                                             </HBox>
+                                          </value>
+                                       </TreeItem>
+                                    </children>
+                                 </TreeItem>
+                                 <TreeItem expanded="true" value="Maliyet">
+                                    <children>
+                                       <TreeItem>
+                                          <value>
+                                             <HBox spacing="10">
+                                                <Label text="Min:" />
+                                                <TextField fx:id="minCostField" prefWidth="50" />
+                                                <Label text="Max:" />
+                                                <TextField fx:id="maxCostField" prefWidth="50" />
+                                             </HBox>
+                                          </value>
+                                       </TreeItem>
+                                    </children>
+                                 </TreeItem>
+                              </children>
+                           </TreeItem>
+                        </TreeView>
+                     </VBox>
+                  </children>
+               </AnchorPane>
+            </content>
+         </ScrollPane>
+      </center>
+   </BorderPane>
+</AnchorPane>

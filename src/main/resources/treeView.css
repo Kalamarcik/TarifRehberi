@@ -1,0 +1,18 @@
+
+.tree-view {
+    -fx-background-color: transparent;
+}
+
+.tree-cell {
+    -fx-background-color: #efe3f2;
+    -fx-text-fill: black;
+}
+
+.tree-cell:filled:selected {
+    -fx-background-color: #5A4FB8;
+}
+
+.tree-cell:filled:hover {
+    -fx-background-color: #7B67D2;
+}
+
